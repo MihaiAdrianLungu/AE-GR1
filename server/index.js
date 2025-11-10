@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const userRoutes = require('./routes/user.routes');
+const authRoutes = require('./routes/auth.routes');
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
     res.status(200).json({message: 'Hello'});
 })
 app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server successfully started on port ${PORT}`);
