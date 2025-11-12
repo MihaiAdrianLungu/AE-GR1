@@ -1,12 +1,25 @@
-import Navbar from "./components/Navbar";
+import { Outlet } from 'react-router-dom'
+import { Toaster } from 'sonner'
+import Navbar from "./components/Navbar"
+import useCheckToken from './hooks/useCheckToken'
+import { useSelector } from 'react-redux';
+import LoadingSpinner from './components/LoadingSpinner';
 
 export default function App() {
+  useCheckToken();
+
+  const { checkTokenLoading } = useSelector(state => state.user);
+
+  if (checkTokenLoading) {
+      return <LoadingSpinner />
+  }
+
   return (
     <>
       <Navbar />
-      <h1 className="text-3xl font-bold text-center mt-10">
-        Tailwind Works! ✅
-      </h1>
+      <Toaster />
+      <Outlet />
     </>
-  );
+  )
 }
+
